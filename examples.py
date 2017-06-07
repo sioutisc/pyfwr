@@ -25,24 +25,31 @@ c = {'username':'your_username','apikey':'your_apikey'}
 
 r1 = { 'credentials': c , 'operation': 'Search' , 'inputs': {'query':'-latlong "-36 137 -33 139"'} }
 response = pyfwr.get(r1)
+print '================= JSON RESPONSE ==================='
+print response
+print '==================================================='
 for flight in response['SearchResult']['aircraft']:
 	print 'Flight ' + flight['ident'] \
 		+ ' of type ' + flight['type'] \
 		+ ' at location ' + str(flight['latitude']) + ',' + str(flight['longitude']) \
 		+ ' with altitude ' + str(flight['altitude'])
 
-
+print
 
 r2 = { 'credentials': c , 'operation': 'MetarEx' , 'inputs': {'airport':'YPAD','howMany':'2'} }
-response = pyfwr.get(r2)
-print 'The air temperature at YPAD airport is ' + str(response['MetarExResult']['metar'][0]['temp_air']) + ' degrees'
+response2 = pyfwr.get(r2)
+print '================= JSON RESPONSE ==================='
+print response2
+print '==================================================='
+print 'The air temperature at YPAD airport is ' + str(response2['MetarExResult']['metar'][0]['temp_air']) + ' degrees'
 
-
-
-
+print
 
 r3 = { 'credentials': c , 'operation': 'Arrived' , 'inputs': {'airport':'YPAD','howMany':'10'} }
-response = pyfwr.get(r3)
+response3 = pyfwr.get(r3)
+print '================= JSON RESPONSE ==================='
+print response3
+print '==================================================='
 print 'The last 10 flights to arrive at YPAD are: '
-for flight in response['ArrivedResult']['arrivals']:
+for flight in response3['ArrivedResult']['arrivals']:
 	print '   - ' + flight['ident'] + ' from ' + flight['origin']
