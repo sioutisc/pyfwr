@@ -33,8 +33,12 @@ def get_json(mapRequest):
 	return json.loads(get_str(mapRequest))
 
 def get_str(mapRequest):
-	req = mapRequest['operation'] + "?" + urllib.urlencode(mapRequest['inputs'])
-	return http_request(mapRequest['credentials'],req)
+	try:
+		req = mapRequest['operation'] + "?" + urllib.urlencode(mapRequest['inputs'])
+		return http_request(mapRequest['credentials'],req)
+	except KeyError:
+		req = mapRequest['operation']
+		return http_request(mapRequest['credentials'],req)
 
 def http_request(credentials,req):
         request = urllib2.Request("%s%s" % (FLIGHTXML_URI,req))
